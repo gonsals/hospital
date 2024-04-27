@@ -1,7 +1,7 @@
 //import { Test } from './Home.styles';
 
 const Home = () => {
-    return <div>Test content</div>;
+    return <div>JEJEJE</div>;
 };
 
 export default Home;

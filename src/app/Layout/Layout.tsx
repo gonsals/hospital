@@ -12,13 +12,13 @@ const Layout = ({ children }: LayoutProps) => {
             <nav>
                 <ul>
                     <li>
-                        <Link to="/">Read</Link>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/read">Read</Link>
                     </li>
                     <li>
                         <Link to="/create">Create</Link>
-                    </li>
-                    <li>
-                        <Link to="/delete">Delete</Link>
                     </li>
                 </ul>
             </nav>
