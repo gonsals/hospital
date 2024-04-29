@@ -1,81 +1,79 @@
-<!-- # React + TypeScript + Vite
+# Patient Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+The Patient Management System is a web application built to simplify the process of managing patient records. It offers functionalities for creating, reading, updating, and deleting patient data. Utilizing React.js for the frontend and Firebase for backend services, the application ensures efficient data management with a user-friendly interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
 
-## Expanding the ESLint configuration
+- **Create Patient Records:** Add new patient details including name, surname, and attendance date.
+- **Read Patient Records:** View a list of existing patient records with pagination support.
+- **Update Patient Records:** Edit existing patient information with real-time updates.
+- **Delete Patient Records:** Remove patient records securely with confirmation prompts.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technologies Used
 
-- Configure the top-level `parserOptions` property like this:
+- [React.js](https://reactjs.org/) - A JavaScript library for building user interfaces.
+- [Firebase](https://firebase.google.com/) - A comprehensive app development platform with tools to help build, improve, and grow apps.
+  - Firestore - A flexible, scalable database for mobile, web, and server development.
+  - Authentication - Easily add sign-in to your web app.
+  - Storage - Store and serve user-generated content, such as photos or videos.
+- [React Router](https://reactrouter.com/) - Declarative routing for React.js.
+- [React Data Table Component](https://github.com/jbetancur/react-data-table-component) - A responsive table component for React.js with built-in sorting, pagination, and filtering.
+- [react-hot-toast](https://react-hot-toast.com/) - A library for toast notifications in React applications.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-``` -->
+## Installation
+
+1. **Clone the repository:** 
+   ```bash
+   git clone <repository_url>
+
+2. **Navigate to the project directory:**
+    ```bash
+    cd patient-management-system
+3. **Install dependencies:**
+    ```bash
+    npm install
+
+4. **Create a Firebase project:**
+
+Set up Firestore, Authentication, and Storage services. Follow the instructions in the [Firebase Documentation](https://firebase.google.com/docs) for detailed setup steps.
+
+5. **Configure Firebase credentials:**
+
+Update Firebase configuration in firebase.ts with your Firebase project credentials.
+
+6. **Run the application:**
+    ```bash
+    npm start
 
 
+## Usage
 
-Project Title: Patient Management System
+- Access the application through the provided URL or by running it locally.
+- Navigate through different pages using the navigation menu.
+- Use the Create page to add new patient records.
+- View existing patient records on the Read page.
+- Update or delete patient records on the Update/Delete page.
 
-Description:
-The Patient Management System is a web application designed to streamline the process of managing patient records. It provides functionalities for creating, reading, updating, and deleting patient data. Built using React.js for the frontend and Firebase for backend services, the application offers a user-friendly interface and ensures efficient data management.
+## License
 
-Key Features:
+This project is licensed under the [MIT License.](https://choosealicense.com/licenses/mit/)
 
-Create Patient Records: Add new patient details including name, surname, and attendance date.
-Read Patient Records: View a list of existing patient records with pagination support.
-Update Patient Records: Edit existing patient information with real-time updates.
-Delete Patient Records: Remove patient records securely with confirmation prompts.
-Technologies Used:
+## Authors
 
-React.js
-Firebase (Firestore, Authentication, Storage)
-React Router
-React Data Table Component
-Toast Notifications
-Installation:
+- [@marcgonzaleztarrio](https://www.github.com/marcgonzaleztarrio)
 
-Clone the repository: git clone <repository_url>
-Navigate to the project directory: cd patient-management-system
-Install dependencies: npm install
-Create a Firebase project and set up Firestore, Authentication, and Storage services.
-Configure Firebase credentials in the project (refer to firebase.ts).
-Run the application: npm start
-Usage:
 
-Access the application through the provided URL or by running it locally.
-Navigate through different pages using the navigation menu.
-Use the Create page to add new patient records.
-View existing patient records on the Read page.
-Update or delete patient records on the Update/Delete page.
-Contributing:
+## Acknowledgements
 
-Contributions are welcome! If you find any issues or have suggestions for improvements, please create a pull request or raise an issue on GitHub.
-License:
-This project is licensed under the MIT License.
+- [React.js Documentation](https://reactjs.org/)
+- [Firebase Documentation](https://firebase.google.com/docs)
+- [React Router Documentation](https://reactrouter.com/)
+- [React Data Table Component Documentation](https://github.com/jbetancur/react-data-table-component)
+- [react-hot-toast Documentation](https://react-hot-toast.com/)
 
-Authors:
 
-Your Name
-Acknowledgements:
+## Contact
 
-React.js Documentation
-Firebase Documentation
-React Router Documentation
-React Data Table Component Documentation
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+For any inquiries or feedback, feel free to contact us at marcgonzaleztarrio@example.com.
