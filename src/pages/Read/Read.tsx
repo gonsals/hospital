@@ -23,7 +23,6 @@ const Read = () => {
     const columns: TableColumn<Patient>[] = [
         {
             name: "ID",
-            allowOverflow: true,
             selector: (patients) => patients.id,
             cell: (patients: Patient) => (
                 <Link

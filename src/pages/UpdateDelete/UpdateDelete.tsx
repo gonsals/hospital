@@ -8,7 +8,7 @@ import {
 } from "../../app/services/patients";
 import { useEffect, useState } from "react";
 import { Patient } from "../../common/Patient";
-import { Form } from "./UpdateDelete.styles";
+import { Form, SpanPatient } from './UpdateDelete.styles';
 import { Timestamp } from "firebase/firestore";
 import toast from "react-hot-toast";
 
@@ -56,9 +56,9 @@ const UpdateDelete = () => {
                         loading: "Updating...",
                         success: (
                             <b>
-                                Updated patient : ${patient?.userName} $
-                                {patient?.surName} ➡ ${updatedPatient?.userName}{" "}
-                                ${updatedPatient?.surName}
+                                Updated patient : {patient?.userName}{" "}
+                                {patient?.surName} ➡ {updatedPatient?.userName}{" "}
+                                {updatedPatient?.surName}
                             </b>
                         ),
                         error: <b>Could not save.</b>,
@@ -78,15 +78,16 @@ const UpdateDelete = () => {
     return (
         <div>
             {patient ? (
-                <p>
-                    name : <strong>{patient.userName}</strong> surname :{" "}
-                    <strong>{patient.surName}</strong> atended :{" "}
-                    <strong>
+                <SpanPatient>
+                    <p>name : <strong>{patient.userName}</strong></p>
+                    <p>surname : <strong>{patient.surName}</strong></p>
+                    <p>atended : <strong>
                         {new Date(
                             patient.atendedAt.seconds * 1000
                         ).toLocaleDateString()}
                     </strong>
-                </p>
+                    </p>
+                </SpanPatient>
             ) : (
                 <p>Loading...</p>
             )}
@@ -117,8 +118,8 @@ const UpdateDelete = () => {
                         value={
                             patient?.atendedAt
                                 ? new Date(patient.atendedAt.seconds * 1000)
-                                      .toISOString()
-                                      .split("T")[0]
+                                    .toISOString()
+                                    .split("T")[0]
                                 : ""
                         }
                         onChange={(e) =>

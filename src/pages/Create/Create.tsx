@@ -21,7 +21,7 @@ const Create = () => {
                 loading: "Saving...",
                 success: (
                     <b>
-                        New patient : ${patient?.userName} - ${patient?.surName}
+                        New patient : {patient?.userName} - {patient?.surName}
                     </b>
                 ),
                 error: <b>Could not save.</b>,
@@ -62,11 +62,11 @@ const Create = () => {
                             patient.atendedAt === undefined
                                 ? ""
                                 : patient.atendedAt instanceof Timestamp
-                                ? patient.atendedAt
-                                      .toDate()
-                                      .toISOString()
-                                      .split("T")[0]
-                                : ""
+                                    ? patient.atendedAt
+                                        .toDate()
+                                        .toISOString()
+                                        .split("T")[0]
+                                    : ""
                         }
                         type="date"
                         onChange={(e) =>

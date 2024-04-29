@@ -23,6 +23,14 @@ export const createPatient = async (obj: NewPatient): Promise<string> => {
 
         const patientData = { ...obj };
 
+        const patients = await getPatients()
+        console.log("Data", patients)
+
+        const patientExists = patients.some(patient => patient.userName === patientData.userName && patient.surName === patientData.surName)
+
+        if (patientExists) {
+            throw new Error("El paciente ya existe en la base de datos");
+        }
         // Verificar si atendedAt es undefined y asignarle serverTimestamp si es así
         if (patientData.atendedAt === undefined) {
             patientData.atendedAt = serverTimestamp();
