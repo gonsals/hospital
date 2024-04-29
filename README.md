@@ -30,7 +30,7 @@ The Patient Management System is a web application built to simplify the process
 
 2. **Navigate to the project directory:**
     ```bash
-    cd patient-management-system
+    cd hospital
 3. **Install dependencies:**
     ```bash
     npm install
