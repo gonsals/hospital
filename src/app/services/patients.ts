@@ -15,6 +15,10 @@ const collectionName = "patients";
 // CREATE
 export const createPatient = async (obj: NewPatient): Promise<string> => {
     try {
+        if (!obj.userName && !obj.surName) {
+            throw new Error("El objeto NewPatient está vacío");
+        }
+
         const colRef = collection(db, collectionName);
 
         const patientData = { ...obj };

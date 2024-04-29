@@ -1,11 +1,11 @@
-import { Test } from "./Read.styles";
 import { useEffect, useState } from "react";
 import { getPatients } from "../../app/services/patients";
 import { Patient } from "../../common/Patient";
 import { Link } from "react-router-dom";
+import DataTable, { TableColumn } from "react-data-table-component";
 
 const Read = () => {
-    const [patients, setPatients] = useState<Patient[]>();
+    const [patients, setPatients] = useState<Patient[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -20,51 +20,64 @@ const Read = () => {
             });
     }, []);
 
+    const columns: TableColumn<Patient>[] = [
+        {
+            name: "ID",
+            allowOverflow: true,
+            selector: (patients) => patients.id,
+            cell: (patients: Patient) => (
+                <Link
+                    to={`/updateDelete/${patients.id}`}
+                    style={{
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                        display: "inline-block",
+                        maxWidth: "100px",
+                        textOverflow: "ellipsis",
+                    }}
+                >
+                    {patients.id}
+                </Link>
+            ),
+            sortable: true,
+        },
+        {
+            name: "PatientName",
+            selector: (patients) => patients.userName,
+            sortable: true,
+        },
+        {
+            name: "PatientSurName",
+            selector: (patients) => patients.surName,
+            sortable: true,
+        },
+        {
+            name: "AtendedAt",
+            selector: (patients: Patient) => {
+                const atendedAtDate = new Date(
+                    patients.atendedAt.seconds * 1000
+                );
+
+                const day = atendedAtDate.getDate();
+                const month = atendedAtDate.getMonth() + 1;
+                const year = atendedAtDate.getFullYear();
+
+                return `${day}/${month}/${year}`;
+            },
+            sortable: true,
+        },
+    ];
+
     return (
-        <Test>
-            {loading ? (
-                <p>Loading...</p>
-            ) : patients && patients.length > 0 ? (
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>ID ⬇️ </td>
-                            <td>PatientName ⬇️ </td>
-                            <td>PatientSurName ⬇️ </td>
-                            <td>AtendedAt ⬇️ </td>
-                        </tr>
-                        {patients.map((patient) => {
-                            const atendedAtDate = new Date(
-                                patient.atendedAt.seconds * 1000
-                            );
-
-                            const day = atendedAtDate.getDate();
-                            const month = atendedAtDate.getMonth() + 1;
-                            const year = atendedAtDate.getFullYear();
-
-                            const formattedAtendedAt = `${day}/${month}/${year}`;
-
-                            return (
-                                <tr key={patient.id}>
-                                    <td>
-                                        <Link
-                                            to={`/updateDelete/${patient.id}`}
-                                        >
-                                            {patient.id}
-                                        </Link>
-                                    </td>
-                                    <td>{patient.userName}</td>
-                                    <td>{patient.surName}</td>
-                                    <td>{formattedAtendedAt}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
-            ) : (
-                <p>Nothing in db</p>
-            )}
-        </Test>
+        <DataTable
+            title="Patients"
+            columns={columns}
+            data={patients}
+            pagination
+            paginationPerPage={10}
+            highlightOnHover
+            progressPending={loading}
+        />
     );
 };
 

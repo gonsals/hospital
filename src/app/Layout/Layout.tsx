@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ReactNode } from "react";
 import { Test } from "./Layout.styles";
+import { Toaster } from "react-hot-toast";
 
 interface LayoutProps {
     children: ReactNode;
@@ -15,14 +16,15 @@ const Layout = ({ children }: LayoutProps) => {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/read">Read</Link>
+                        <Link to="/create">Create</Link>
                     </li>
                     <li>
-                        <Link to="/create">Create</Link>
+                        <Link to="/read">Read</Link>
                     </li>
                 </ul>
             </nav>
             <main>{children}</main>
+            <Toaster />
         </Test>
     );
 };

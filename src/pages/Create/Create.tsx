@@ -5,6 +5,7 @@ import { createPatient } from "../../app/services/patients";
 import { NewPatient } from "../../common/Patient";
 import { Timestamp } from "firebase/firestore";
 import { Test } from "./Create.styles";
+import toast from "react-hot-toast";
 
 const Create = () => {
     const [patient, setPatient] = useState<NewPatient>({
@@ -12,26 +13,33 @@ const Create = () => {
         surName: "",
         atendedAt: undefined,
     });
-    const [showPatient, setShowPatient] = useState(false);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            await createPatient(patient);
-            setShowPatient(true);
+            await toast.promise(createPatient(patient), {
+                loading: "Saving...",
+                success: (
+                    <b>
+                        New patient : ${patient?.userName} - ${patient?.surName}
+                    </b>
+                ),
+                error: <b>Could not save.</b>,
+            });
+
             setTimeout(() => {
                 setPatient({ userName: "", surName: "", atendedAt: undefined });
-                setShowPatient(false);
             }, 1200);
         } catch (error) {
-            console.log(error);
+            if (error instanceof Error) toast.error(error.message);
+            else throw error;
         }
     };
 
     return (
         <div>
             <Test onSubmit={handleSubmit}>
-                <div>
+                <div className="inputs">
                     <input
                         value={patient.userName}
                         type="text"
@@ -55,9 +63,9 @@ const Create = () => {
                                 ? ""
                                 : patient.atendedAt instanceof Timestamp
                                 ? patient.atendedAt
-                                    .toDate()
-                                    .toISOString()
-                                    .split("T")[0]
+                                      .toDate()
+                                      .toISOString()
+                                      .split("T")[0]
                                 : ""
                         }
                         type="date"
@@ -73,14 +81,6 @@ const Create = () => {
                 </div>
                 <button type="submit">SEND</button>
             </Test>
-            {showPatient && (
-                <div>
-                    <p>
-                        Paciente : Name: {patient.userName} - Surname:{" "}
-                        {patient.surName}
-                    </p>
-                </div>
-            )}
         </div>
     );
 };

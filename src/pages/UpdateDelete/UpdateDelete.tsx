@@ -1,6 +1,6 @@
 //import { Test } from './UpdateDelete.styles';
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
     deletePatient,
     getPatientById,
@@ -10,21 +10,13 @@ import { useEffect, useState } from "react";
 import { Patient } from "../../common/Patient";
 import { Form } from "./UpdateDelete.styles";
 import { Timestamp } from "firebase/firestore";
-
-enum PatientStatus {
-    Unchanged,
-    Updated,
-    Deleted,
-}
+import toast from "react-hot-toast";
 
 const UpdateDelete = () => {
     const { id } = useParams();
     const [patient, setPatient] = useState<Patient>();
-    const [showPatient, setShowPatient] = useState(false);
     const [updatedPatient, setUpdatedPatient] = useState<Patient>();
-    const [patientStatus, setPatientStatus] = useState<PatientStatus>(
-        PatientStatus.Unchanged
-    );
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (id) {
@@ -42,13 +34,13 @@ const UpdateDelete = () => {
     const handleDelete = async () => {
         try {
             id && (await deletePatient(id));
-            setPatientStatus(PatientStatus.Deleted);
-            setShowPatient(true);
+            toast(`Deleted patient : ${patient?.userName}`, {
+                icon: "🗑️",
+            });
             setTimeout(() => {
                 setPatient(undefined);
-                setShowPatient(false);
-                window.location.href = "/";
-            }, 1200);
+                navigate("/");
+            }, 1000);
         } catch (error) {
             console.log(error);
         }
@@ -58,12 +50,24 @@ const UpdateDelete = () => {
         event.preventDefault();
         try {
             if (id && updatePatient && patient) {
-                await updatePatient(id, updatedPatient || patient);
-                setShowPatient(true);
+                await toast.promise(
+                    updatePatient(id, updatedPatient || patient),
+                    {
+                        loading: "Updating...",
+                        success: (
+                            <b>
+                                Updated patient : ${patient?.userName} $
+                                {patient?.surName} ➡ ${updatedPatient?.userName}{" "}
+                                ${updatedPatient?.surName}
+                            </b>
+                        ),
+                        error: <b>Could not save.</b>,
+                    }
+                );
+
                 setTimeout(() => {
                     setPatient(undefined);
-                    setShowPatient(false);
-                    window.location.href = "/";
+                    navigate("/");
                 }, 1200);
             }
         } catch (error) {
@@ -74,13 +78,15 @@ const UpdateDelete = () => {
     return (
         <div>
             {patient ? (
-                <h5>
-                    Name: {patient.userName} - Surname: {patient.surName} -
-                    Date:
-                    {new Date(
-                        patient.atendedAt.seconds * 1000
-                    ).toLocaleDateString()}
-                </h5>
+                <p>
+                    name : <strong>{patient.userName}</strong> surname :{" "}
+                    <strong>{patient.surName}</strong> atended :{" "}
+                    <strong>
+                        {new Date(
+                            patient.atendedAt.seconds * 1000
+                        ).toLocaleDateString()}
+                    </strong>
+                </p>
             ) : (
                 <p>Loading...</p>
             )}
@@ -130,19 +136,6 @@ const UpdateDelete = () => {
                 </div>
             </Form>
             <button onClick={() => handleDelete()}>DELETE</button>
-
-            {showPatient && (
-                <div>
-                    <p>
-                        {patientStatus === PatientStatus.Deleted ? (
-                            <span>Deleted patient: </span>
-                        ) : (
-                            <span>Updated patient: </span>
-                        )}
-                        Name: {patient?.userName} - Surname : {patient?.surName}
-                    </p>
-                </div>
-            )}
         </div>
     );
 };
