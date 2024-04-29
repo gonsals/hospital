@@ -13,22 +13,21 @@ import { Timestamp } from "firebase/firestore";
 import toast from "react-hot-toast";
 
 const UpdateDelete = () => {
-    const { id } = useParams();
+    const { id } = useParams<string>();
     const [patient, setPatient] = useState<Patient>();
     const [updatedPatient, setUpdatedPatient] = useState<Patient>();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (id) {
-            getPatientById(id)
-                .then((data) => {
-                    data && setPatient(data);
-                    data && setUpdatedPatient(data);
-                })
-                .catch((error) =>
-                    console.error("Error fetching patient:", error)
-                );
-        }
+
+        id && getPatientById(id)
+            .then((data) => {
+                data && setPatient(data);
+                data && setUpdatedPatient(data);
+            })
+            .catch((error) =>
+                console.error("Error fetching patient:", error)
+            );
     }, [id]);
 
     const handleDelete = async () => {

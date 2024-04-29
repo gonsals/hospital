@@ -1,4 +1,4 @@
-import { serverTimestamp, updateDoc } from "firebase/firestore";
+import { serverTimestamp, updateDoc } from 'firebase/firestore';
 import { NewPatient, Patient } from "../../common/Patient";
 import {
     db,
