@@ -62,7 +62,7 @@ This project is licensed under the [MIT License.](https://choosealicense.com/lic
 
 ## Authors
 
-- [@marcgonzaleztarrio](https://www.github.com/marcgonzaleztarrio)
+- [@gonsals](https://www.github.com/gonsals)
 
 
 ## Acknowledgements
